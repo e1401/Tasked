@@ -6,6 +6,7 @@ import Signup from './pages/signup/Signup';
 import Project from './pages/project/Project';
 import NotFound from './pages/notFound/NotFound';
 import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 //styles
 import './App.css';
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Sidebar />
         <div className="container">
           <Navbar />
           <Switch>
