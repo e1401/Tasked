@@ -7,6 +7,7 @@ import Project from './pages/project/Project';
 import NotFound from './pages/notFound/NotFound';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+
 //styles
 import './App.css';
 
