@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { useAuthContext } from './hooks/useAuthContext';
 import Create from './pages/create/Create';
 import Dashboard from './pages/dashboard/Dashboard';
 import Login from './pages/login/Login';
@@ -12,32 +13,41 @@ import Sidebar from './components/Sidebar';
 import './App.css';
 
 function App() {
+  const { user, authIsReady } = useAuthContext();
+  console.log(user);
   return (
     <div className="App">
-      <BrowserRouter>
-        <Sidebar />
-        <div className="container">
-          <Navbar />
-          <Switch>
-            <Route exact path="/">
-              <Dashboard />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/create">
-              <Create />
-            </Route>
-            <Route path="/project/:id">
-              <Project />
-            </Route>
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+      {authIsReady && (
+        <BrowserRouter>
+          <Sidebar />
+          <div className="container">
+            <Navbar />
+            <Switch>
+              <Route exact path="/">
+                {user && <Dashboard />}
+                {!user && <Redirect to="/login" />}
+              </Route>
+              <Route path="/login">
+                {!user && <Login />}
+                {user && <Redirect to="/" />}
+              </Route>
+              <Route path="/signup">
+                {!user && <Signup />}
+                {user && <Redirect to="/" />}
+              </Route>
+              <Route path="/create">
+                {!user && <Redirect to="/login" />}
+                {user && <Create />}
+              </Route>
+              <Route path="/project/:id">
+                {!user && <Redirect to="/login" />}
+                {user && <Project />}
+              </Route>
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )}
     </div>
   );
 }
