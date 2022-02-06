@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
+import Avatar from './Avatar';
 
 //styles and assets
 import './Sidebar.css';
@@ -13,8 +14,7 @@ function Sidebar() {
       <div className="sidebar-content">
         <div className="user">
           {/* place for avatar and user */}
-          {!user && <p>Please log in or sign up</p>}
-          {user && <p>Hey {user.displayName}</p>}
+          <Avatar user={user} />
         </div>
         <nav className="links">
           <ul>
