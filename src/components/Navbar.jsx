@@ -3,8 +3,11 @@ import './Navbar.css';
 import TaskedLogo from '../assets/tasked-logo.svg';
 
 import { Link } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
 
 function Navbar() {
+  const { logout, isPending } = useLogout();
+
   return (
     <nav className="navbar">
       <ul>
@@ -16,7 +19,16 @@ function Navbar() {
           <Link to="/signup">Sign up</Link>
         </li>
         <li>
-          <button className="btn">Logout</button>
+          {!isPending && (
+            <button className="btn" onClick={logout}>
+              Logout
+            </button>
+          )}
+          {isPending && (
+            <button className="btn" onClick={logout} disabled>
+              Logging out
+            </button>
+          )}
         </li>
       </ul>
     </nav>
