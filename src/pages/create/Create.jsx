@@ -15,15 +15,26 @@ function Create() {
   const [users, setUsers] = useState([]);
 
   //form field values
-  const [name, setName] = useState('');
+  const [projectName, setProjectName] = useState('');
   const [details, setDetails] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [category, setCategory] = useState('');
   const [assignedUsers, setAssignedUsers] = useState([]);
+  const [formError, setFormError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, details, dueDate, category, assignedUsers);
+    setFormError(null);
+    if (category === '') {
+      setFormError('Please select category');
+      return;
+    }
+    if (assignedUsers.length === 0) {
+      setFormError('Please assign al leeast one user');
+      return;
+    }
+
+    console.log(projectName, details, dueDate, category, assignedUsers.length);
   };
 
   // useEffect(() => {
@@ -58,7 +69,12 @@ function Create() {
       <form onSubmit={handleSubmit}>
         <label>
           <span>Project name</span>
-          <input type="text" required value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            type="text"
+            required
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+          />
         </label>
         <label>
           <span>Project details</span>
@@ -87,6 +103,7 @@ function Create() {
           <Select options={users} onChange={(option) => setAssignedUsers(option)} isMulti />
         </label>
         <button className="btn">Create project</button>
+        {formError && <div className="error">{formError}</div>}
       </form>
     </div>
   );
