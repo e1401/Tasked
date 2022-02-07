@@ -16,9 +16,8 @@ function OnlineUsers() {
       {documents &&
         documents.map((user) => (
           <div key={user.id} className="user-list-item">
-            <p>{user.displayName}</p>
-
-            {user.online ? <p>User online</p> : <p>User offline</p>}
+            {user.online && <span className="online-user"></span>}
+            <span>{user.displayName}</span>
             <Avatar user={user} />
           </div>
         ))}
