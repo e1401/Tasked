@@ -1,5 +1,8 @@
+import { timestamp } from '../../firebase/config';
+
 import { useState, useEffect } from 'react';
 import { useCollection } from '../../hooks/useCollection';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import Select from 'react-select';
 import './Create.css';
 
@@ -11,6 +14,7 @@ const categories = [
 ];
 
 function Create() {
+  const { user } = useAuthContext();
   const { documents } = useCollection('users');
   const [users, setUsers] = useState([]);
 
@@ -30,29 +34,34 @@ function Create() {
       return;
     }
     if (assignedUsers.length === 0) {
-      setFormError('Please assign al leeast one user');
+      setFormError('Please assign at least one user');
       return;
     }
 
-    console.log(projectName, details, dueDate, category, assignedUsers.length);
+    const createdBy = {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid
+    };
+
+    const assignedUsersList = assignedUsers.map((user) => {
+      return {
+        displayName: user.value.displayName,
+        photoURL: user.value.photoURL,
+        id: user.value.id
+      };
+    });
+    const project = {
+      projectName,
+      details,
+      dueDate: timestamp.fromDate(new Date(dueDate)),
+      category: category.value,
+      comments: [],
+      createdBy,
+      assignedUsersList
+    };
+    console.log(project);
   };
-
-  // useEffect(() => {
-  //   const userList = async () => {
-  //     if (documents) {
-  //       const result = await documents.map((user) => ({
-  //         value: user.displayName,
-  //         label: user.displayName
-  //       }));
-  //       setUsers(result);
-  //     } else {
-  //       console.log(error);
-  //     }
-  //   };
-  //   userList();
-  // }, [documents, error]);
-
-  // console.log(users);
 
   useEffect(() => {
     if (documents) {
