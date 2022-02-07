@@ -1,13 +1,11 @@
 import './OnlineUsers.css';
 // import { projectFirestore } from '../firebase/config';
 import { useCollection } from '../hooks/useCollection';
-import { useAuthContext } from '../hooks/useAuthContext';
+
 import Avatar from './Avatar';
 
 function OnlineUsers() {
   const { documents, error } = useCollection('users');
-
-  console.log(documents);
 
   return (
     <div className="user-list">

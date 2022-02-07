@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useCollection } from '../../hooks/useCollection';
 import Select from 'react-select';
 import './Create.css';
 
@@ -10,6 +11,10 @@ const categories = [
 ];
 
 function Create() {
+  const { documents } = useCollection('users');
+  const [users, setUsers] = useState([]);
+
+  //form field values
   const [name, setName] = useState('');
   const [details, setDetails] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -18,8 +23,34 @@ function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, details, dueDate, category);
+    console.log(name, details, dueDate, category, assignedUsers);
   };
+
+  // useEffect(() => {
+  //   const userList = async () => {
+  //     if (documents) {
+  //       const result = await documents.map((user) => ({
+  //         value: user.displayName,
+  //         label: user.displayName
+  //       }));
+  //       setUsers(result);
+  //     } else {
+  //       console.log(error);
+  //     }
+  //   };
+  //   userList();
+  // }, [documents, error]);
+
+  // console.log(users);
+
+  useEffect(() => {
+    if (documents) {
+      const options = documents.map((user) => {
+        return { value: user, label: user.displayName };
+      });
+      setUsers(options);
+    }
+  }, [documents]);
 
   return (
     <div className="create-form">
@@ -53,7 +84,7 @@ function Create() {
         </label>
         <label>
           <span>Assign to:</span>
-          {/* todo assigned users */}
+          <Select options={users} onChange={(option) => setAssignedUsers(option)} isMulti />
         </label>
         <button className="btn">Create project</button>
       </form>
