@@ -1,12 +1,27 @@
+import { Link } from 'react-router-dom';
+import Avatar from './Avatar';
+
 import './ProjectList.css';
 
 function ProjectList({ projects }) {
   console.log(projects);
   return (
-    <div>
+    <div className="project-list">
       {projects.length === 0 && <p>No projects</p>}
       {projects.map((project) => (
-        <div key={project.id}>{project.projectName}</div>
+        <Link key={project.id} to={`/projects/${project.id}`}>
+          <h4>{project.projectName}</h4>
+          <p>Due by: {project.dueDate.toDate().toDateString()}</p>
+          <div className="assigned-to">
+            <ul>
+              {project.assignedUsersList.map((user) => (
+                <li key={user.photoURL}>
+                  <Avatar user={user} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Link>
       ))}
     </div>
   );
