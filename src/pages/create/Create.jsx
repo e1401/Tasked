@@ -65,10 +65,6 @@ function Create() {
       assignedUsersList
     };
     await addDocument(project);
-    console.log(response);
-    if (response.success) {
-      history.push('/');
-    }
   };
 
   useEffect(() => {
@@ -77,8 +73,13 @@ function Create() {
         return { value: user, label: user.displayName };
       });
       setUsers(options);
+
+      //adding a project condition for redirect
+      if (response.success) {
+        history.push('/');
+      }
     }
-  }, [documents]);
+  }, [documents, response.success, history]);
 
   return (
     <div className="create-form">
