@@ -1,8 +1,10 @@
 import { timestamp } from '../../firebase/config';
+import { useHistory } from 'react-router-dom';
 
 import { useState, useEffect } from 'react';
 import { useCollection } from '../../hooks/useCollection';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useFirestore } from '../../hooks/useFirestore';
 import Select from 'react-select';
 import './Create.css';
 
@@ -16,7 +18,9 @@ const categories = [
 function Create() {
   const { user } = useAuthContext();
   const { documents } = useCollection('users');
+  const { addDocument, response } = useFirestore('projects');
   const [users, setUsers] = useState([]);
+  const history = useHistory();
 
   //form field values
   const [projectName, setProjectName] = useState('');
@@ -26,7 +30,7 @@ function Create() {
   const [assignedUsers, setAssignedUsers] = useState([]);
   const [formError, setFormError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError(null);
     if (category === '') {
@@ -60,7 +64,11 @@ function Create() {
       createdBy,
       assignedUsersList
     };
-    console.log(project);
+    await addDocument(project);
+    console.log(response);
+    if (response.success) {
+      history.push('/');
+    }
   };
 
   useEffect(() => {
@@ -113,6 +121,7 @@ function Create() {
         </label>
         <button className="btn">Create project</button>
         {formError && <div className="error">{formError}</div>}
+        {response.error && <div className="error">{response.error}</div>}
       </form>
     </div>
   );
