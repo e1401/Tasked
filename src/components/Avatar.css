@@ -1,7 +1,7 @@
 .avatar {
   /* display: inline-block; */
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   width: 150px;
   height: 150px;
   overflow: hidden;
@@ -16,6 +16,6 @@
   margin-bottom: auto;
 }
 
-.avatar p {
+/* .avatar p {
   align-self: center;
-}
+} */
