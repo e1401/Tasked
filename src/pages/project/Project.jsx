@@ -1,12 +1,11 @@
 import './Project.css';
 import { useDocument } from '../../hooks/useDocument';
 import { useParams } from 'react-router-dom';
+import ProjectDetails from './ProjectDetails';
 
 function Project() {
   const { id } = useParams();
   const { document, error } = useDocument('projects', id);
-  console.log(id);
-  console.log(document, error);
 
   if (error) {
     return <div className="error">{error}</div>;
@@ -18,7 +17,7 @@ function Project() {
 
   return (
     <div className="project-details">
-      <h1>{document.projectName}</h1>
+      <ProjectDetails project={document} />
     </div>
   );
 }

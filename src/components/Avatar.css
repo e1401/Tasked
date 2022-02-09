@@ -1,13 +1,21 @@
 .avatar {
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  flex-direction: column;
   width: 150px;
   height: 150px;
   overflow: hidden;
 }
 
 .avatar img {
+  align-self: center;
   width: 75%;
   height: 75%;
   border-radius: 50%;
   object-fit: cover;
+  margin-bottom: auto;
+}
+
+.avatar p {
+  align-self: center;
 }
