@@ -19,7 +19,7 @@ function Project() {
   return (
     <div className="project-details">
       <ProjectDetails project={document} />
-      <ProjectComment />
+      <ProjectComment project={document} />
     </div>
   );
 }
