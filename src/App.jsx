@@ -15,7 +15,7 @@ import './App.css';
 
 function App() {
   const { user, authIsReady } = useAuthContext();
-  console.log(user);
+
   return (
     <div className="App">
       {authIsReady && (

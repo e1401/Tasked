@@ -5,7 +5,6 @@ import './Dashboard.css';
 
 function Dashboard() {
   const { documents, error } = useCollection('projects');
-  console.log(documents);
 
   return (
     <div>

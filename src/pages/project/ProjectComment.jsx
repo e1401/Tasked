@@ -29,6 +29,8 @@ function ProjectComment({ project }) {
       setNewComment('');
     }
   };
+
+
   return (
     <div className="project-comments">
       <h4>Project comments</h4>
