@@ -10,10 +10,8 @@ function ProjectComment({ project }) {
   const [newComment, setNewComment] = useState('');
   const { user } = useAuthContext();
   const { updateDocument, response } = useFirestore('projects');
-  console.log(project);
 
   const { id } = useParams();
-  console.log(project);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +28,6 @@ function ProjectComment({ project }) {
     if (!response.error) {
       setNewComment('');
     }
-    console.log(response);
   };
   return (
     <div className="project-comments">
