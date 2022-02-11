@@ -1,3 +1,4 @@
+import formatDisanceToNow from 'date-fns/formatDistanceToNow';
 import { timestamp } from '../../firebase/config';
 import { useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
@@ -30,7 +31,6 @@ function ProjectComment({ project }) {
     }
   };
 
-
   return (
     <div className="project-comments">
       <h4>Project comments</h4>
@@ -42,7 +42,7 @@ function ProjectComment({ project }) {
                 <Avatar user={comment} />
               </div>
               <div className="comment-date">
-                <p>Date here</p>
+                <p>{formatDisanceToNow(comment.createdAt.toDate(), { addSuffix: true })}</p>
               </div>
               <div className="comment-content">
                 <p>{comment.content}</p>
