@@ -1,14 +1,8 @@
-import { useState } from 'react';
 const filterList = ['all', 'mine', 'development', 'design', 'marketing', 'sales'];
 
-function ProjectFilter({ projects }) {
-  const [currentFilter, setCurrentFilter] = useState('all');
-
+function ProjectFilter({ currentFilter, changeFilter }) {
   const handleClick = (button) => {
-    let newArr = projects.filter((project) => project.category === button);
-
-    console.log(newArr);
-    setCurrentFilter(button);
+    changeFilter(button);
   };
   return (
     <div className="project-filter">

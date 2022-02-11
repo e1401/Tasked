@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
-import { useState } from 'react';
 
 import './ProjectList.css';
 
