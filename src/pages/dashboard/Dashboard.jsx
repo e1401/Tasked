@@ -47,13 +47,7 @@ function Dashboard() {
   return (
     <div>
       <h2 className="page-title">Dashboard</h2>
-      {documents && (
-        <ProjectFilter
-          // projects={documents}
-          currentFilter={currentFilter}
-          changeFilter={changeFilter}
-        />
-      )}
+      {documents && <ProjectFilter currentFilter={currentFilter} changeFilter={changeFilter} />}
       {error && <p className="error">{error}</p>}
       {filteredProjects && <ProjectList projects={filteredProjects} />}
     </div>
