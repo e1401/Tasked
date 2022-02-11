@@ -1,5 +1,5 @@
 ## Demo
-[Tasked] (https://tasked-386bf.web.app/)
+[Tasked](https://tasked-386bf.web.app/)
 
 # Getting Started with Create React App
 
